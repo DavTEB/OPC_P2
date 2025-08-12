@@ -9,7 +9,7 @@ from urllib.parse import urljoin
 import time
 import os
 
-# Start from the "Books" super-category that lists ALL books
+# Start from the Books super-category that lists ALL books
 START_URL = "https://books.toscrape.com/catalogue/category/books_1/page-1.html"
 OUTPUT_DIR = "books_csv"
 
@@ -72,7 +72,7 @@ def scrape_book(url):
         'price_without_tax': price_excl_tax,
         'availability': availability,
         'description': description,
-        'category': category,    
+        'category': category,
         'product_url': url
     }
 
@@ -151,10 +151,10 @@ def scrape_all_books(start_url, delay=0.5, max_pages=None):
 # EXECUTION
 if __name__ == "__main__":
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-
     print("Scraping ALL books via the master listing ...\n")
     grouped = scrape_all_books(START_URL, delay=0.5, max_pages=None)
-
+    print("🔎 Scraping ALL books via the master listing ...\n")
+    grouped = scrape_all_books(START_URL, delay=0.5, max_pages=1)
     total = 0
     for category_name, rows in grouped.items():
         total += len(rows)
