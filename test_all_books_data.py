@@ -151,12 +151,12 @@ def scrape_all_books(start_url, delay=0.5, max_pages=None):
     
     return by_category
 
-# === EXECUTION ===
+# EXECUTION
 if __name__ == "__main__":
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 
     print("🔎 Scraping ALL books via the master listing ...\n")
-    grouped = scrape_all_books(START_URL, delay=0.5, max_pages=2)
+    grouped = scrape_all_books(START_URL, delay=0.5, max_pages=2) #Here I added the stop arg
 
     total = 0
     for category_name, rows in grouped.items():
@@ -168,4 +168,4 @@ if __name__ == "__main__":
         df.to_csv(out_path, index=False)
         print(f"💾 Saved {len(rows)} rows to: {out_path}")
 
-    print(f"\n🎉 Finished. Total books scraped across all categories: {total}")
+    print(f"\n Finished. Total books scraped across all categories: {total}")
