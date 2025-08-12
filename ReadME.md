@@ -27,10 +27,45 @@ This project is part of my OpenClassrooms Python Developer path. It demonstrates
 
 ## Installation
 Clone the repository
-  bash 
-
-        git clone https://github.com/DavTEB/OPC_P2.git
+ ```bash
+  git clone https://github.com/DavTEB/OPC_P2.git
         cd books_to_scrape
+ ```
 
+## Environnement virtuel (Python 3.9)
+
+  Prérequis
+  - Avoir Python 3.9 installé.
+  - Vérifier:
+    - macOS/Linux: `python3.9 --version`
+    - Windows: `py -3.9 --version`
+
+Création et activation du venv
+- macOS / Linux
+```bash
+# À la racine du projet
+python3.9 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+```
+
+- Windows (PowerShell)
+```powershell
+# À la racine du projet
+py -3.9 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+```
+
+Installer les dépendances
+```bash
+# Si requirements.txt existe
+pip install -r requirements.txt
+```
+
+Désactiver l’environnement
+```bash
+deactivate
+```
 ## Author 
 David TEBELE
