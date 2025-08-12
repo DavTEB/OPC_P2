@@ -121,7 +121,7 @@ def scrape_all_books(start_url, delay=0.5, max_pages=None):
             print(f"Stopping after {max_pages} pages (global listing).")
             break
         else:
-            print(f"📄 Scraping listing page {page_number}: {current_url}")
+            print(f" Scraping listing page {page_number}: {current_url}")
         
         # Collect product links on this page
         book_urls = get_book_urls_from_page(current_url)
