@@ -18,11 +18,11 @@ def scrape_book(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'lxml')
     
-    # 1) Title (easy to see)
+    # Title
     h1 = soup.find('h1')
     title = h1.text if h1 else "N/A"
     
-    # 2) All fields from the product information table
+    # All fields from the product information table
     table = soup.find('table', class_='table table-striped')
     
     upc = ""
@@ -50,7 +50,7 @@ def scrape_book(url):
                     else:
                         availability = "0"
     
-    # 3) Description (just below the product description header)
+    # Description (just below the product description header)
     description_div = soup.find('div', id='product_description')
     if description_div:
         next_p = description_div.find_next_sibling('p')
@@ -58,9 +58,9 @@ def scrape_book(url):
     else:
         description = "Pas de description"
 
-    # 4) Category (from breadcrumb: Home > Books > Category > Book)
+    # Category (from breadcrumb: Home > Books > Category > Book)
     category = "Unknown"
-    # The anchors in breadcrumb usually are: Home, Books, Category
+    
     bc_links = soup.select('ul.breadcrumb li a')
     if len(bc_links) >= 3:
         category = bc_links[-1].get_text(strip=True)
@@ -72,12 +72,12 @@ def scrape_book(url):
         'price_without_tax': price_excl_tax,
         'availability': availability,
         'description': description,
-        'category': category,     # keep the category for grouping into CSVs
+        'category': category,    
         'product_url': url
     }
 
 def get_book_urls_from_page(list_url):
-    """Extract all product URLs from a listing page (any category page)."""
+    """Extract all product URLs from a listing page (any category page)"""
     response = requests.get(list_url)
     soup = BeautifulSoup(response.content, 'lxml')
     
@@ -106,8 +106,8 @@ def get_next_page_url(current_url):
 
 def scrape_all_books(start_url, delay=0.5, max_pages=None):
     """
-    Iterate over ALL pages of the 'Books' super-category, scrape each product,
-    and group results by their real category name.
+    Iterate over ALL pages of the Books super-category, scrape each product,
+    and group results by their real category name
     """
     by_category = {}   # dict: {category_name: [rows]}
     current_url = start_url
@@ -118,7 +118,7 @@ def scrape_all_books(start_url, delay=0.5, max_pages=None):
             print(f"Stopping after {max_pages} pages (global listing).")
             break
         else:
-            print(f"📄 Scraping listing page {page_number}: {current_url}")
+            print(f"Scraping listing page {page_number}: {current_url}")
         
         # Collect product links on this page
         book_urls = get_book_urls_from_page(current_url)
@@ -127,7 +127,7 @@ def scrape_all_books(start_url, delay=0.5, max_pages=None):
         # Visit each product page
         for i, book_url in enumerate(book_urls, 1):
             print(f"     • Book {i}/{len(book_urls)}")
-            try:
+            try: # Handling errors
                 data = scrape_book(book_url)
                 cat = data.get('category', 'Unknown') or 'Unknown'
                 by_category.setdefault(cat, []).append(data)
@@ -148,12 +148,12 @@ def scrape_all_books(start_url, delay=0.5, max_pages=None):
     
     return by_category
 
-# === EXECUTION ===
+# EXECUTION
 if __name__ == "__main__":
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-    print("🔎 Scraping ALL books via the master listing ...\n")
-    grouped = scrape_all_books(START_URL, delay=0.5, max_pages=2)
+    print("Scraping ALL books via the master listing ...\n")
+    grouped = scrape_all_books(START_URL, delay=0.5, max_pages=None)
 
     total = 0
     for category_name, rows in grouped.items():
@@ -163,6 +163,6 @@ if __name__ == "__main__":
         out_path = os.path.join(OUTPUT_DIR, f"{safe_name}.csv")
         df = pd.DataFrame(rows)
         df.to_csv(out_path, index=False)
-        print(f"💾 Saved {len(rows)} rows to: {out_path}")
+        print(f" Saved {len(rows)} rows to: {out_path}")
 
-    print(f"\n🎉 Finished. Total books scraped across all categories: {total}")
+    print(f"\n Finished. Total books scraped across all categories: {total}")
