@@ -10,7 +10,7 @@ from urllib.parse import urljoin
 START_URL   = "https://books.toscrape.com/catalogue/category/books_1/page-1.html"
 OUTPUT_DIR  = "books_csv"
 IMAGES_DIR  = "books_images"
-MAX_PAGES   = 4        # None to scrape all pages
+MAX_PAGES   = 2        # None to scrape all pages
 REQUEST_GAP = 0.5      # delay
 TIMEOUT     = 20
 

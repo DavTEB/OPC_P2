@@ -110,12 +110,12 @@ def scrape_category(category_url):
         
         # Scraper chaque livre
         for i, book_url in enumerate(book_urls, 1):
-            print(f"  📚 Livre {i}/{len(book_urls)}")
+            print(f"  Livre {i}/{len(book_urls)}")
             book_data = scrape_book(book_url)
             all_books_data.append(book_data)
-            time.sleep(0.5)  # Pause pour être poli
+            time.sleep(0.5)  # delay
         
-        # Chercher la page suivante
+        # search for next page
         current_url = get_next_page_url(current_url)
         page_number += 1
         
@@ -128,7 +128,7 @@ def scrape_category(category_url):
 
 # === EXECUTION ===
 
-# URL category (exemple: Mystery)
+# URL category (exemple: historical Fiction)
 category_url = "https://books.toscrape.com/catalogue/category/books/historical-fiction_4/index.html"
 
 # Scraper toute la catégorie
