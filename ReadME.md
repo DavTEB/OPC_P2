@@ -1,5 +1,5 @@
 # Books to Scrape - Web Scraping - Openclassrooms Python Project 2 / 13
-A web scraping project that extracts book information from the "Books to Scrape" website for educational purposes
+A web scraping project that extracts book information from the "Books to Scrape" website
 
 ## Project Overview
 
@@ -15,7 +15,7 @@ This project is part of my OpenClassrooms Python Developer path. It demonstrates
 
 ## Technos used
 
-- Python 3.9
+- Python 3.9 (be careful of the python version, you're using, you can use pyenv to handle that issue)
 - Requests: HTTP library for web requests
 - Warnings: handling OpenSSL terminal warnings, not necessary if you have the right version of urllib3
 - BeautifulSoup4: HTML parsing and data extraction
@@ -30,17 +30,19 @@ Clone the repository
  ```bash
   git clone https://github.com/DavTEB/OPC_P2.git
         cd books_to_scrape
+        run allsite_scraping.py
  ```
 
 ## Environnement virtuel (Python 3.9)
 
   Prérequis
-  - Avoir Python 3.9 installé.
-  - Vérifier:
+  - Avoir Python 3.9 downloaded.
+  - be careful of the python version, you're using, you can use pyenv to handle that issue
+  - To check:
     - macOS/Linux: `python3.9 --version`
     - Windows: `py -3.9 --version`
 
-Création et activation du venv
+venv Création & activation
 - macOS / Linux
 ```bash
 # À la racine du projet
